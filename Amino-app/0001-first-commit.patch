@@ -1,0 +1,226 @@
+From 7fb82880019f7dc341763230d1852c2e1cf90f24 Mon Sep 17 00:00:00 2001
+From: lsobecki-equinix <leo.sobecki@eu.equinix.com>
+Date: Thu, 29 Jun 2023 17:54:17 +0200
+Subject: [PATCH] first commit
+
+---
+ amino-app/node_modules/package-lock.json      |  0
+ amino-app/node_modules/package.json           |  0
+ amino-app/public/index.html                   |  0
+ amino-app/src/App.js                          |  0
+ amino-app/src/components/AminoAcid.js         | 15 +++++++++++
+ amino-app/src/components/Component.js         | 12 +++++++++
+ amino-app/src/components/InfoComponent.js     | 23 ++++++++++++++++
+ .../src/components/MemoryGameComponent.js     | 25 +++++++++++++++++
+ amino-app/src/components/QuizComponent.js     | 25 +++++++++++++++++
+ amino-app/src/components/ReactApp.js          | 27 +++++++++++++++++++
+ amino-app/src/database/MongoDBDatabase.js     |  0
+ amino-app/src/index.js                        |  0
+ amino-app/src/services/BackEndServer.js       |  0
+ amino-app/styles/styles.css                   |  0
+ 14 files changed, 127 insertions(+)
+ create mode 100644 amino-app/node_modules/package-lock.json
+ create mode 100644 amino-app/node_modules/package.json
+ create mode 100644 amino-app/public/index.html
+ create mode 100644 amino-app/src/App.js
+ create mode 100644 amino-app/src/components/AminoAcid.js
+ create mode 100644 amino-app/src/components/Component.js
+ create mode 100644 amino-app/src/components/InfoComponent.js
+ create mode 100644 amino-app/src/components/MemoryGameComponent.js
+ create mode 100644 amino-app/src/components/QuizComponent.js
+ create mode 100644 amino-app/src/components/ReactApp.js
+ create mode 100644 amino-app/src/database/MongoDBDatabase.js
+ create mode 100644 amino-app/src/index.js
+ create mode 100644 amino-app/src/services/BackEndServer.js
+ create mode 100644 amino-app/styles/styles.css
+
+diff --git a/amino-app/node_modules/package-lock.json b/amino-app/node_modules/package-lock.json
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/node_modules/package.json b/amino-app/node_modules/package.json
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/public/index.html b/amino-app/public/index.html
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/src/App.js b/amino-app/src/App.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/src/components/AminoAcid.js b/amino-app/src/components/AminoAcid.js
+new file mode 100644
+index 0000000..1359527
+--- /dev/null
++++ b/amino-app/src/components/AminoAcid.js
+@@ -0,0 +1,15 @@
++import React from 'react';
++
++// Functional component: Single amino acid representation.
++const AminoAcid = ({ name, image, properties, codons, structure, chemicalProperties }) => {
++    // It takes in several props representing amino acid properties and renders them.
++    return (
++        <div>
++            <h2>{name}</h2>
++            <img src={image} alt={name} />
++            {/* Render other properties here */}
++        </div>
++    );
++};
++
++export default AminoAcid;
+diff --git a/amino-app/src/components/Component.js b/amino-app/src/components/Component.js
+new file mode 100644
+index 0000000..c12940b
+--- /dev/null
++++ b/amino-app/src/components/Component.js
+@@ -0,0 +1,12 @@
++import React from 'react';
++
++const Component = ({ children }) => {
++    // This base component renders any child components that are passed to it
++    return (
++        <div>
++            {children}
++        </div>
++    );
++};
++
++export default Component;
+diff --git a/amino-app/src/components/InfoComponent.js b/amino-app/src/components/InfoComponent.js
+new file mode 100644
+index 0000000..48f7eb3
+--- /dev/null
++++ b/amino-app/src/components/InfoComponent.js
+@@ -0,0 +1,23 @@
++import React, { useState } from 'react';
++import AminoAcid from './AminoAcid';
++
++// Functional component: info panel for displaying information about amino acids.
++const InfoComponent = ({ aminoAcidData }) => {
++    // The useState hook manages the state of the currently selected amino acid.
++    const [selectedAminoAcid, setSelectedAminoAcid] = useState(aminoAcidData[0]);  // select first amino acid by default
++
++    // handleInput handles input from the user and uses it to set the selected amino acid.
++    const handleInput = (input) => {
++        // logic to select amino acid based on input
++        setSelectedAminoAcid(input);
++    };
++
++    // InfoComponent renders an AminoAcid component with the currently selected amino acid.
++    return (
++        <div>
++            <AminoAcid {...selectedAminoAcid} onInput={handleInput} />
++        </div>
++    );
++};
++
++export default InfoComponent;
+diff --git a/amino-app/src/components/MemoryGameComponent.js b/amino-app/src/components/MemoryGameComponent.js
+new file mode 100644
+index 0000000..5825c42
+--- /dev/null
++++ b/amino-app/src/components/MemoryGameComponent.js
+@@ -0,0 +1,25 @@
++import React, { useState } from 'react';
++import Component from './Component';
++
++// Functional component: Memory game
++const MemoryGameComponent = ({ children }) => {
++    // Here are states for the current game strategy, the current question, and the current score.
++    const [strategy, setStrategy] = useState(null);
++    const [question, setQuestion] = useState(null);
++    const [score, setScore] = useState(0);
++
++    // This function will handle input from the user.
++    const handleInput = (input) => {
++        // logic to handle input
++    };
++
++    // The component renders its child components (cards, answers, ect.)
++    return (
++        <div>
++            {/* Render children components */}
++            {children}
++        </div>
++    );
++};
++
++export default MemoryGameComponent;
+diff --git a/amino-app/src/components/QuizComponent.js b/amino-app/src/components/QuizComponent.js
+new file mode 100644
+index 0000000..4298a3a
+--- /dev/null
++++ b/amino-app/src/components/QuizComponent.js
+@@ -0,0 +1,25 @@
++import React, { useState } from 'react';
++import Component from './Component';
++
++// Functional component: quiz about amino acids.
++const QuizComponent = ({ children }) => {
++    // Current states for the current quiz strategy and the current question.
++    const [strategy, setStrategy] = useState(null);
++    const [question, setQuestion] = useState(null);
++
++    // This function will handle input from the user in some way.
++    const handleInput = (input) => {
++        // logic to handle input
++    };
++
++    // The component renders its child components
++    // (like questions, answers, or other quiz-related elements)
++    return (
++        <div>
++            {/* Render children components */}
++            {children}
++        </div>
++    );
++};
++
++export default QuizComponent;
+diff --git a/amino-app/src/components/ReactApp.js b/amino-app/src/components/ReactApp.js
+new file mode 100644
+index 0000000..1e3b0e9
+--- /dev/null
++++ b/amino-app/src/components/ReactApp.js
+@@ -0,0 +1,27 @@
++import React, { useState } from 'react';
++import InfoComponent from './InfoComponent';
++import QuizComponent from './QuizComponent';
++import MemoryGameComponent from './MemoryGameComponent';
++import Component from './Component';
++
++const ReactApp = ({ initialComponent, components }) => {
++    // This component manages which component (InfoComponent, QuizComponent, MemoryGameComponent) 
++    // is currently active and should be rendered.
++    const [currentComponent, setCurrentComponent] = useState(initialComponent);
++
++    const switchComponent = (component) => {
++        setCurrentComponent(component);
++    };
++
++    // This is where the currentComponent is rendered, and switchComponent is passed down to allow 
++    // child components to switch the currentComponent.
++    return (
++        <Component>
++            {currentComponent === 'InfoComponent' && <InfoComponent switchComponent={switchComponent} />}
++            {currentComponent === 'QuizComponent' && <QuizComponent switchComponent={switchComponent} />}
++            {currentComponent === 'MemoryGameComponent' && <MemoryGameComponent switchComponent={switchComponent} />}
++        </Component>
++    );
++};
++
++export default ReactApp;
+diff --git a/amino-app/src/database/MongoDBDatabase.js b/amino-app/src/database/MongoDBDatabase.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/src/index.js b/amino-app/src/index.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/src/services/BackEndServer.js b/amino-app/src/services/BackEndServer.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/amino-app/styles/styles.css b/amino-app/styles/styles.css
+new file mode 100644
+index 0000000..e69de29
+-- 
+2.39.2 (Apple Git-143)
+
