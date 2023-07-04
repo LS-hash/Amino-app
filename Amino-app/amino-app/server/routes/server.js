@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const connectDB = require("./database/MongoDBDatabase"); // Assume MongoDBDatabase.js exports a function to connect to your database
-const routes = require("./routes");
+const connectDB = require("../database/MongoDBDatabase"); // Assume MongoDBDatabase.js exports a function to connect to your database
+const routes = require("../routes");
 
 // Connect to the database
 connectDB();
