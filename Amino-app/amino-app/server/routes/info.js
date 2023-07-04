@@ -12,6 +12,8 @@ router.get("/:id", (req, res) => {
   res.send("Info data for ID " + req.params.id);
 });
 
+router.listen();
+
 module.exports = router;
 
 // In the above info.js file, I've defined two routes:
